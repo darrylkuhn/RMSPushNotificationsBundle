@@ -192,7 +192,7 @@ class AppleNotification implements OSNotificationServiceInterface
     {
         if (!isset($this->apnStreams[$apnURL])) {
             // No stream found, setup a new stream
-            $ctx = $this->getStreamContext();
+            $ctx = $this->getStreamContext();        
             $this->apnStreams[$apnURL] = stream_socket_client($apnURL, $err, $errstr, 60, STREAM_CLIENT_CONNECT, $ctx);
             if (!$this->apnStreams[$apnURL]) {
                 throw new \RuntimeException("Couldn't connect to APN server. Error no $err: $errstr");
@@ -282,7 +282,7 @@ class AppleNotification implements OSNotificationServiceInterface
             $jsonBody = json_encode($message, JSON_UNESCAPED_UNICODE ^ JSON_FORCE_OBJECT);
         }
         else {
-            $jsonBody = json_encode($message, JSON_FORCE_OBJECT);
+            $jsonBody = json_encode($message);
         }
 
         $token = preg_replace("/[^0-9A-Fa-f]/", "", $token);
